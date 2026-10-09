@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบ - วิทยาการคำนวณ ป.4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --citrus-zest: #FFA62B;
+            --sea-breeze: #86C5FF;
+            --amalfi-tile: #2E5AA7;
+            --cream-gelato: #F8E6A0;
+            --bg-light: #FFFDF7;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+        }
+
+        .text-amalfi { color: var(--amalfi-tile); }
+        .text-citrus { color: var(--citrus-zest); }
+        .bg-amalfi { background-color: var(--amalfi-tile); }
+        .bg-citrus { background-color: var(--citrus-zest); }
+
+        .btn-citrus {
+            background-color: var(--citrus-zest);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-citrus:hover {
+            background-color: #e59320;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 166, 43, 0.3);
+        }
+
+        .btn-amalfi {
+            background-color: var(--amalfi-tile);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-amalfi:hover {
+            background-color: #234785;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(46, 90, 167, 0.25);
+        }
+
+        .quiz-view { display: none; }
+        .quiz-view.active { display: block; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- แถบนำทางด้านบน -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-blue-200">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-amalfi block leading-tight">วิทยาการคำนวณ ป.4</span>
+                        <span class="text-xs text-slate-500 font-medium">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="index.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">หน้าแรก</a>
+                    <a href="how-to-use.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">วิธีการใช้งาน</a>
+                    <a href="lessons.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">บทเรียน</a>
+                    <a href="quizzes.html" class="px-4 py-2 rounded-full font-semibold bg-amalfi text-white transition">แบบทดสอบ</a>
+                    <a href="activities.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">กิจกรรม</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">ติดต่อ</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2 border-l border-slate-200 pl-4">
+                    <div id="userBadge" class="text-xs font-bold text-amalfi bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200">
+                        <i class="fa-solid fa-circle-user text-citrus mr-1"></i> <span id="navStdName">ยังไม่ได้ลงทะเบียน</span>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-amalfi hover:text-blue-900 focus:outline-none text-2xl p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F8E6A0] px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20">หน้าแรก</a>
+            <a href="how-to-use.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20">วิธีการใช้งาน</a>
+            <a href="lessons.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20">บทเรียน</a>
+            <a href="quizzes.html" class="block px-4 py-2 rounded-xl font-semibold bg-amalfi text-white">แบบทดสอบ</a>
+            <a href="activities.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20">กิจกรรม</a>
+            <a href="contact.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20">ติดต่อ</a>
+        </div>
+    </nav>
+
+    <!-- ส่วนหัวเรื่อง -->
+    <header class="bg-gradient-to-r from-[#86C5FF]/30 via-[#F8E6A0]/40 to-[#86C5FF]/20 py-8 border-b border-[#F8E6A0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white px-4 py-1 rounded-full border border-sky-200 text-amalfi text-xs font-semibold shadow-sm mb-2">
+                <i class="fa-solid fa-pen-to-square text-citrus"></i>
+                <span>ศูนย์รวมแบบทดสอบ 4 บทเรียน</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-amalfi">แบบทดสอบก่อนเรียนและหลังเรียน</h1>
+            <p class="text-slate-600 mt-1 text-sm">เลือกทำแบบทดสอบแบบแยกตามบทเรียน (ชุดละ 10 ข้อ)</p>
+        </div>
+    </header>
+
+    <!-- ส่วนเนื้อหาหลัก -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+
+        <!-- เมนูเลือกชุดแบบทดสอบ -->
+        <div id="view-quiz-menu" class="quiz-view active space-y-10">
+            <!-- ก่อนเรียน -->
+            <div>
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-amalfi text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-amalfi">แบบทดสอบก่อนเรียน (Pre-test)</h2>
+                        <p class="text-xs text-slate-500">ทดสอบความรู้พื้นฐานก่อนเริ่มศึกษาเนื้อหา (บทละ 10 ข้อ)</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button type="button" onclick="startQuiz('pre', 1)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-amalfi hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-sky-100 text-amalfi text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 1</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-amalfi transition">รู้จักอินเทอร์เน็ต</h3>
+                        <p class="text-xs text-slate-500">ความหมาย ประโยชน์ การเชื่อมต่อ</p>
+                        <div class="text-xs font-bold text-citrus flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('pre', 2)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-amalfi hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 2</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-emerald-700 transition">การค้นหาข้อมูล</h3>
+                        <p class="text-xs text-slate-500">Search Engine และ Keyword</p>
+                        <div class="text-xs font-bold text-citrus flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('pre', 3)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-amalfi hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 3</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-amber-700 transition">มารยาทบนอินเทอร์เน็ต</h3>
+                        <p class="text-xs text-slate-500">ข้อปฏิบัติ ภาษา สิทธิผู้อื่น</p>
+                        <div class="text-xs font-bold text-citrus flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('pre', 4)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-amalfi hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 4</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-rose-700 transition">ความปลอดภัยส่วนตัว</h3>
+                        <p class="text-xs text-slate-500">รหัสผ่าน ข้อมูลส่วนตัว ภัยคุกคาม</p>
+                        <div class="text-xs font-bold text-citrus flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- หลังเรียน -->
+            <div>
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-citrus text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-amalfi">แบบทดสอบหลังเรียน (Post-test)</h2>
+                        <p class="text-xs text-slate-500">ประเมินความรู้ความเข้าใจหลังศึกษาบทเรียนเรียบร้อย (บทละ 10 ข้อ)</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button type="button" onclick="startQuiz('post', 1)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-citrus hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-sky-100 text-amalfi text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 1</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-citrus transition">รู้จักอินเทอร์เน็ต</h3>
+                        <p class="text-xs text-slate-500">ความหมาย ประโยชน์ การเชื่อมต่อ</p>
+                        <div class="text-xs font-bold text-amalfi flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('post', 2)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-citrus hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 2</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-citrus transition">การค้นหาข้อมูล</h3>
+                        <p class="text-xs text-slate-500">Search Engine และ Keyword</p>
+                        <div class="text-xs font-bold text-amalfi flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('post', 3)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-citrus hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 3</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-citrus transition">มารยาทบนอินเทอร์เน็ต</h3>
+                        <p class="text-xs text-slate-500">ข้อปฏิบัติ ภาษา สิทธิผู้อื่น</p>
+                        <div class="text-xs font-bold text-amalfi flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="startQuiz('post', 4)" class="bg-white p-5 rounded-2xl border-2 border-[#F8E6A0] hover:border-citrus hover:shadow-md transition text-left space-y-2 group cursor-pointer">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">บทที่ 4</span>
+                        <h3 class="font-bold text-slate-800 text-sm group-hover:text-citrus transition">ความปลอดภัยส่วนตัว</h3>
+                        <p class="text-xs text-slate-500">รหัสผ่าน ข้อมูลส่วนตัว ภัยคุกคาม</p>
+                        <div class="text-xs font-bold text-amalfi flex items-center gap-1 pt-2">
+                            <span>เริ่มทำแบบทดสอบ (10 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าทำแบบทดสอบ -->
+        <div id="view-quiz-active" class="quiz-view bg-white p-6 md:p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-sm max-w-3xl mx-auto">
+            <div class="flex justify-between items-center border-b-2 border-[#F8E6A0] pb-4 mb-6">
+                <div>
+                    <span id="quizBadge" class="text-xs font-bold bg-amalfi text-white px-3 py-1 rounded-full uppercase">Pre-test</span>
+                    <h2 id="quizTitle" class="text-xl font-bold text-amalfi mt-2">แบบทดสอบบทที่ 1</h2>
+                </div>
+                <button type="button" onclick="showMenu()" class="text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 px-3 py-1.5 rounded-lg cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> ย้อนกลับ
+                </button>
+            </div>
+
+            <!-- กล่องแสดงข้อมูลผู้เรียน (Read-only Auto Filter) -->
+            <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 mb-6 space-y-3">
+                <div class="flex justify-between items-center">
+                    <p class="text-xs font-bold text-amalfi uppercase"><i class="fa-solid fa-user-check"></i> ข้อมูลผู้ทำแบบทดสอบ</p>
+                    <button type="button" onclick="enableEditStudent()" id="btnEditStd" class="text-xs font-semibold text-citrus hover:underline cursor-pointer">
+                        <i class="fa-solid fa-pen-to-square"></i> แก้ไขข้อมูล
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">รหัสนักเรียน</label>
+                        <input type="text" id="stdId" required placeholder="เช่น 288" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-slate-100/70 text-slate-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">ชื่อ - นามสกุล</label>
+                        <input type="text" id="stdName" required placeholder="เช่น อัมบียา" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-slate-100/70 text-slate-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">ชั้น / เลขที่</label>
+                        <input type="text" id="stdClass" required placeholder="เช่น ป.4/1 เลขที่ 1" readonly class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-slate-100/70 text-slate-700">
+                    </div>
+                </div>
+            </div>
+
+            <form id="quizForm" onsubmit="submitSingleQuiz(event)" class="space-y-6">
+                <div id="questionsContainer" class="space-y-6"></div>
+
+                <div class="pt-6 text-center">
+                    <button type="submit" id="btnSubmitQuiz" class="px-8 py-3.5 btn-citrus font-bold rounded-2xl shadow-lg text-sm cursor-pointer">
+                        ส่งคำตอบและบันทึกคะแนน
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- หน้าสรุปผลคะแนน -->
+        <div id="view-quiz-result" class="quiz-view bg-white p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-xl text-center max-w-md mx-auto space-y-4">
+            <div class="w-20 h-20 bg-[#F8E6A0] text-citrus rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-amalfi">สรุปผลการทำแบบทดสอบ</h3>
+            <p id="resQuizName" class="text-sm font-semibold text-slate-600">แบบทดสอบก่อนเรียน บทที่ 1</p>
+            <div id="resScore" class="text-5xl font-extrabold text-citrus py-2">0 / 10</div>
+            <p id="resFeedback" class="text-sm text-slate-500">บันทึกคะแนนลงระบบเรียบร้อยแล้ว!</p>
+            <div class="pt-4 flex justify-center gap-3">
+                <button type="button" onclick="showMenu()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition cursor-pointer">
+                    เลือกบทอื่น
+                </button>
+                <a href="lessons.html" class="px-6 py-2.5 btn-amalfi font-bold rounded-xl text-sm shadow-md">
+                    ทบทวนบทเรียน
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="mt-1 text-xs text-slate-400">หน่วยการเรียนรู้เรื่อง การใช้งานอินเทอร์เน็ต</p>
+        </div>
+    </footer>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHQQ3sR6JRujo3T_3ocpmu0-LAGiicoLyDOLWySFgbJslp0JE7IUZK3USh1a38ctZuIQ/exec";
+
+        const quizNames = {
+            1: "บทที่ 1: รู้จักอินเทอร์เน็ต",
+            2: "บทที่ 2: การค้นหาข้อมูล",
+            3: "บทที่ 3: มารยาทบนอินเทอร์เน็ต",
+            4: "บทที่ 4: ความปลอดภัยส่วนตัว"
+        };
+
+        const quizBank = {
+            1: [
+                { q: "1. อินเทอร์เน็ต (Internet) หมายถึงอะไร?", a: "A", ops: ["ก. เครือข่ายคอมพิวเตอร์ที่เชื่อมต่อกันทั่วโลก", "ข. โปรแกรมสำหรับวาดรูปภาพ", "ค. เครื่องพิมพ์เอกสาร"] },
+                { q: "2. ข้อใดเป็นประโยชน์หลักของอินเทอร์เน็ต?", a: "B", ops: ["ก. ช่วยลบไวรัสคอมพิวเตอร์อัตโนมัติ", "ข. ช่วยค้นหาข้อมูลและติดต่อสื่อสารได้สะดวก", "ค. ช่วยซ่อมพัดลมไฟฟ้า"] },
+                { q: "3. อุปกรณ์ใดต่อไปนี้ **ไม่สามารถ** เชื่อมต่ออินเทอร์เน็ตได้?", a: "C", ops: ["ก. สมาร์ตโฟน", "ข. แท็บเล็ต", "ค. เครื่องทำน้ำอุ่นธรรมดา"] },
+                { q: "4. สัญญาณอินเทอร์เน็ตแบบไร้สายเรียกว่าอะไร?", a: "A", ops: ["ก. Wi-Fi", "ข. CPU", "ค. RAM"] },
+                { q: "5. โปรแกรมที่ใช้สำหรับเปิดชมเว็บไซต์บนอินเทอร์เน็ตเรียกว่าอะไร?", a: "B", ops: ["ก. Word Processor", "ข. Web Browser", "ค. Calculator"] },
+                { q: "6. ข้อใดคือตัวอย่างของโปรแกรม Web Browser?", a: "A", ops: ["ก. Google Chrome", "ข. Microsoft Word", "ค. Windows Media Player"] },
+                { q: "7. การรับส่งข้อความผ่านอินเทอร์เน็ตเรียกว่าอะไร?", a: "C", ops: ["ก. Bluetooth", "ข. Wi-Fi", "ค. อีเมล (E-mail)"] },
+                { q: "8. สัญลักษณ์ www ย่อมาจากคำว่าอะไร?", a: "A", ops: ["ก. World Wide Web", "ข. World Web Wide", "ค. Web Wide World"] },
+                { q: "9. หากไม่มีสัญญาณอินเทอร์เน็ต จะไม่สามารถทำสิ่งใดได้?", a: "B", ops: ["ก. วาดรูปในโปรแกรม Paint", "ข. ดูวิดีโอบน YouTube แบบออนไลน์", "ค. พิมพ์รายงานลงในเครื่อง"] },
+                { q: "10. การเรียนรู้ออนไลน์ผ่านอินเทอร์เน็ตมีข้อดีอย่างไร?", a: "C", ops: ["ก. ต้องจ่ายเงินแพงมาก", "ข. ทำให้ไม่ต้องทำการบ้าน", "ค. เรียนรู้ได้ทุกที่ทุกเวลา"] }
+            ],
+            2: [
+                { q: "1. โปรแกรม Search Engine มีหน้าที่หลักอย่างไร?", a: "A", ops: ["ก. ช่วยค้นหาข้อมูลบนอินเทอร์เน็ต", "ข. สแกนไวรัสคอมพิวเตอร์", "ค. พิมพ์งานเอกสาร"] },
+                { q: "2. ข้อใดเป็น Search Engine ที่ได้รับความนิยมมากที่สุด?", a: "B", ops: ["ก. Excel", "ข. Google", "ค. PowerPoint"] },
+                { q: "3. คำสำคัญที่ใช้พิมพ์ลงในช่องค้นหาเรียกว่าอะไร?", a: "A", ops: ["ก. Keyword", "ข. Password", "ค. Username"] },
+                { q: "4. ค้นหาข้อมูลเรื่อง 'วันลอยกระทง' ควรใช้ Keyword ใดดีที่สุด?", a: "B", ops: ["ก. ประเพณีไทยสืบทอดกันมานาน", "ข. ประวัติวันลอยกระทง", "ค. ดอกไม้สวยงาม"] },
+                { q: "5. การระบุ Keyword ที่สั้นและตรงประเด็นมีประโยชน์อย่างไร?", a: "C", ops: ["ก. ค้นหาไม่พบข้อมูล", "ข. ใช้เวลาค้นหานานขึ้น", "ค. ได้ผลลัพธ์ที่ตรงตามความต้องการ"] },
+                { q: "6. หากต้องการค้นหาเฉพาะรูปภาพ ควรเลือกเมนูใดใน Google?", a: "A", ops: ["ก. ค้นรูป (Images)", "ข. ข่าวสาร (News)", "ค. แผนที่ (Maps)"] },
+                { q: "7. เมื่อค้นพบผลลัพธ์หลายเว็บไซต์ ควรปฏิบัติอย่างไร?", a: "B", ops: ["ก. สุ่มเลือกเว็บแรกทันที", "ข. อ่านเปรียบเทียบข้อมูลจากหลายๆ เว็บไซต์", "ค. ปิดเครื่องคอมพิวเตอร์"] },
+                { q: "8. เว็บไซต์หน่วยงานรัฐบาลไทยมักลงท้ายด้วยส่วนขยายใด?", a: "C", ops: ["ก. .com", "ข. .net", "ค. .go.th"] },
+                { q: "9. เว็บไซต์โรงเรียนและสถานศึกษาไทยมักลงท้ายด้วยส่วนขยายใด?", a: "A", ops: ["ก. .ac.th", "ข. .org", "ค. .co.th"] },
+                { q: "10. สิ่งใดช่วยยืนยันว่าข้อมูลบนอินเทอร์เน็ตมีความน่าเชื่อถือ?", a: "B", ops: ["ก. ตัวอักษรสีแดงขนาดใหญ่", "ข. ระบุชื่อผู้แต่งและแหล่งที่มาชัดเจน", "ค. มีโฆษณาขึ้นเยอะๆ"] }
+            ],
+            3: [
+                { q: "1. คำว่า Netiquette หมายถึงอะไร?", a: "A", ops: ["ก. มารยาทในการใช้งานอินเทอร์เน็ต", "ข. ความเร็วของอินเทอร์เน็ต", "ค. การซื้อของออนไลน์"] },
+                { q: "2. การพิมพ์ข้อความกลั่นแกล้งหรือล้อเลียนผู้อื่นออนไลน์เรียกว่าอะไร?", a: "B", ops: ["ก. E-learning", "ข. Cyberbullying", "ค. Online Gaming"] },
+                { q: "3. เมื่อนำรูปภาพผู้อื่นมาใช้ทำรายงาน ควรทำอย่างไร?", a: "C", ops: ["ก. ลบชื่อเจ้าของรูปออก", "ข. บอกว่าเราถ่ายเอง", "ค. เขียนอ้างอิงแหล่งที่มา"] },
+                { q: "4. การใช้ภาษาในการสื่อสารออนไลน์ควรเป็นอย่างไร?", a: "A", ops: ["ก. สุภาพ ไพเราะ และให้เกียรติผู้อื่น", "ข. ใช้คำหยาบเพื่อความสนิทสนม", "ค. พิมพ์ตัวหนาข่มขู่"] },
+                { q: "5. หากเจอข่าวปลอม (Fake News) ควรทำอย่างไร?", a: "B", ops: ["ก. รีบส่งต่อให้เพื่อนทุกคน", "ข. ไม่แชร์ต่อ และแจ้งผู้ใหญ่ให้ตรวจสอบ", "ค. พิมพ์ด่าเจ้าของข่าว"] },
+                { q: "6. การนำรูปเพื่อนไปตัดต่อตลกๆ แล้วโพสต์ล้อเลียน เหมาะสมหรือไม่?", a: "C", ops: ["ก. เหมาะสมเพราะตลกดี", "ข. เหมาะสมเพื่อความสนุกสนาน", "ค. ไม่เหมาะสม เสียมารยาทและละเมิดสิทธิ"] },
+                { q: "7. พฤติกรรมใดแสดงถึงการเคารพสิทธิของผู้อื่น?", a: "A", ops: ["ก. ขออนุญาตก่อนนำภาพเพื่อนไปโพสต์", "ข. แอบเข้าดูแชทส่วนตัวเพื่อน", "ค. บอกรหัสผ่านเพื่อนให้คนอื่น"] },
+                { q: "8. สัญลักษณ์ © แสดงถึงสิ่งใด?", a: "B", ops: ["ก. ราคาสินค้า", "ข. ลิขสิทธิ์ความคุ้มครองผลงาน", "ค. สถานที่ตั้ง"] },
+                { q: "9. การแสดงความคิดเห็นเชิงบวกบนออนไลน์มีผลอย่างไร?", a: "A", ops: ["ก. สร้างบรรยากาศที่ดีในสังคมออนไลน์", "ข. ทำให้คอมพิวเตอร์ช้าลง", "ค. ทำให้เสียเงิน"] },
+                { q: "10. หากมีความเห็นต่างจากเพื่อนในกลุ่มเรียน ควรปฏิบัติตนอย่างไร?", a: "C", ops: ["ก. พิมพ์คำหยาบโต้ตอบ", "ข. บล็อกเพื่อนทุกคน", "ค. แสดงความคิดเห็นด้วยเหตุผลอย่างสุภาพ"] }
+            ],
+            4: [
+                { q: "1. ข้อมูลข้อใดถือเป็น 'ข้อมูลส่วนตัว' ที่ต้องเก็บเป็นความลับ?", a: "B", ops: ["ก. วิชาเรียนที่ชอบ", "ข. เลขบัตรประชาชน และรหัสผ่าน", "ค. สีโปรด"] },
+                { q: "2. การตั้งรหัสผ่าน (Password) ข้อใดปลอดภัยที่สุด?", a: "C", ops: ["ก. 123456", "ข. วันเกิดตนเอง", "ค. ผสมตัวอักษร ตัวเลข และสัญลักษณ์เดายาก"] },
+                { q: "3. มีคนแปลกหน้าทักแชทมาชวนนัดพบเพียงลำพัง ควรทำอย่างไร?", a: "A", ops: ["ก. ปฏิเสธและแจ้งผู้ปกครองหรือครูทันที", "ข. แอบไปหาคนเดียว", "ค. ชวนเพื่อนอนุบาลไปด้วย"] },
+                { q: "4. การโพสต์เช็กอินตำแหน่งที่อยู่บ้านตลอดเวลา มีความเสี่ยงอย่างไร?", a: "B", ops: ["ก. ได้รับรางวัลจากแอปพลิเคชัน", "ข. เสี่ยงต่อการโดนขโมยขึ้นบ้านหรือโดนติดตาม", "ค. โทรศัพท์จะแบตหมดช้าลง"] },
+                { q: "5. เมื่อใช้คอมพิวเตอร์โรงเรียนเสร็จแล้ว ควรทำสิ่งใดเป็นอันดับแรก?", a: "C", ops: ["ก. ปิดหน้าจอทันที", "ข. ถอดปลั๊กไฟออก", "ค. ออกจากระบบ (Log out) บัญชีตนเอง"] },
+                { q: "6. ข้อใดคือลักษณะของข้อความหลอกลวง (Phishing)?", a: "A", ops: ["ก. แจ้งว่าคุณได้รับเงินแสน ให้คลิกลิงก์ยืนยันรหัสผ่าน", "ข. ข้อความแจ้งการบ้านจากคุณครู", "ค. ข้อความอวยพรวันเกิดจากเพื่อน"] },
+                { q: "7. หากเผลอกดลิงก์แปลกปลอมแล้วเครื่องมีอาการแปลกๆ ควรทำอย่างไร?", a: "B", ops: ["ก. ปิดเรื่องเงียบไว้คนเดียว", "ข. รีบแจ้งผู้ปกครองหรือครูผู้ดูแลระบบทันที", "ค. ปิดไฟห้องนอน"] },
+                { q: "8. การตั้งรหัสผ่านล็อกหน้าจอโทรศัพท์มือถือมีประโยชน์อย่างไร?", a: "A", ops: ["ก. ป้องกันผู้อื่นแอบเข้าถึงข้อมูลส่วนตัว", "ข. ถ่ายรูปได้สวยขึ้น", "ค. ชาร์จแบตเตอรี่ไวขึ้น"] },
+                { q: "9. หากได้รับรูปภาพที่ไม่เหมาะสมทางแชท ควรปฏิบัติอย่างไร?", a: "C", ops: ["ก. ส่งต่อให้เพื่อนในห้องทุกคน", "ข. บันทึกเก็บไว้", "ค. ไม่ส่งต่อ บล็อกผู้ส่ง และแจ้งผู้ใหญ่"] },
+                { q: "10. ข้อใดคือหลักการท่องอินเทอร์เน็ตอย่างปลอดภัย?", a: "B", ops: ["ก. เชื่อทุกอย่างที่อ่านบนอินเทอร์เน็ต", "ข. คิดก่อนคลิก และไม่เปิดเผยข้อมูลส่วนตัว", "ค. บอกรหัสผ่านแก่เพื่อนทุกคน"] }
+            ]
+        };
+
+        let currentQuiz = { type: '', unit: 0 };
+
+        window.onload = function() {
+            loadStudentData();
+        };
+
+        function loadStudentData() {
+            const stdId = localStorage.getItem('stdId') || '';
+            const stdName = localStorage.getItem('stdName') || '';
+            const stdClass = localStorage.getItem('stdClass') || '';
+
+            document.getElementById('stdId').value = stdId;
+            document.getElementById('stdName').value = stdName;
+            document.getElementById('stdClass').value = stdClass;
+
+            if (stdName) {
+                document.getElementById('navStdName').textContent = stdName;
+            } else {
+                document.getElementById('navStdName').textContent = "ยังไม่ได้ลงทะเบียน";
+            }
+        }
+
+        function enableEditStudent() {
+            const idInput = document.getElementById('stdId');
+            const nameInput = document.getElementById('stdName');
+            const classInput = document.getElementById('stdClass');
+
+            idInput.removeAttribute('readonly');
+            nameInput.removeAttribute('readonly');
+            classInput.removeAttribute('readonly');
+
+            idInput.classList.remove('bg-slate-100/70');
+            nameInput.classList.remove('bg-slate-100/70');
+            classInput.classList.remove('bg-slate-100/70');
+
+            idInput.focus();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function showMenu() {
+            document.querySelectorAll('.quiz-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-quiz-menu').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startQuiz(type, unit) {
+            loadStudentData(); // โหลดข้อมูลล่าสุด
+            
+            const stdName = document.getElementById('stdName').value.trim();
+            if (!stdName) {
+                alert('กรุณาลงทะเบียนหรือกรอกชื่อนักเรียนก่อนเริ่มทำแบบทดสอบครับ');
+                enableEditStudent();
+            }
+
+            currentQuiz = { type: type, unit: unit };
+            const questions = quizBank[unit];
+            
+            document.getElementById('quizBadge').textContent = type === 'pre' ? 'Pre-test (ก่อนเรียน)' : 'Post-test (หลังเรียน)';
+            document.getElementById('quizTitle').textContent = `แบบทดสอบ${quizNames[unit]} (10 ข้อ)`;
+
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questions.forEach((qData, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'space-y-2 pt-4 border-t border-slate-100';
+                
+                const opsHtml = qData.ops.map((op, oIdx) => {
+                    const val = oIdx === 0 ? 'A' : (oIdx === 1 ? 'B' : 'C');
+                    return `
+                        <label class="flex items-center space-x-3 p-2.5 rounded-xl hover:bg-slate-50 cursor-pointer text-sm border border-slate-100">
+                            <input type="radio" name="q${idx}" value="${val}" required class="text-amalfi focus:ring-amalfi">
+                            <span>${op}</span>
+                        </label>
+                    `;
+                }).join('');
+
+                qDiv.innerHTML = `
+                    <p class="font-bold text-slate-800 text-sm md:text-base">${qData.q}</p>
+                    <div class="space-y-1.5 pl-1">${opsHtml}</div>
+                `;
+                container.appendChild(qDiv);
+            });
+
+            document.querySelectorAll('.quiz-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-quiz-active').classList.add('active');
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+
+        function submitSingleQuiz(e) {
+            e.preventDefault();
+            
+            const stdId = document.getElementById('stdId').value.trim();
+            const stdName = document.getElementById('stdName').value.trim();
+            const stdClass = document.getElementById('stdClass').value.trim();
+
+            if (!stdId || !stdName || !stdClass) {
+                alert('กรุณากรอกข้อมูลนักเรียนให้ครบถ้วนก่อนส่งแบบทดสอบครับ');
+                return;
+            }
+
+            // บันทึกปรับปรุงข้อมูลล่าสุดเก็บไว้
+            localStorage.setItem('stdId', stdId);
+            localStorage.setItem('stdName', stdName);
+            localStorage.setItem('stdClass', stdClass);
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "กำลังบันทึกคะแนน...";
+
+            const questions = quizBank[currentQuiz.unit];
+            const formData = new FormData(e.target);
+            let score = 0;
+
+            questions.forEach((qData, idx) => {
+                if (formData.get(`q${idx}`) === qData.a) {
+                    score++;
+                }
+            });
+
+            const typeText = currentQuiz.type === 'pre' ? 'ก่อนเรียน' : 'หลังเรียน';
+            const resultText = score >= 6 ? 'ผ่านเกณฑ์' : 'ควรปรับปรุง';
+
+            // ส่งเฉพาะผลสอบเข้า Google Sheets (ประเภทรายการจะเป็น "ก่อนเรียน" หรือ "หลังเรียน")
+            const payload = {
+                studentId: stdId,
+                name: stdName,
+                studentClass: stdClass,
+                type: typeText,
+                quizName: quizNames[currentQuiz.unit],
+                score: score,
+                fullScore: 10,
+                result: resultText
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                finishQuizUI(typeText, score);
+            }).catch(err => {
+                finishQuizUI(typeText, score);
+            });
+        }
+
+        function finishQuizUI(typeText, score) {
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "ส่งคำตอบและบันทึกคะแนน";
+
+            document.getElementById('resQuizName').textContent = `แบบทดสอบ${typeText} ${quizNames[currentQuiz.unit]}`;
+            document.getElementById('resScore').textContent = `${score} / 10`;
+
+            const feedback = document.getElementById('resFeedback');
+            if (score >= 9) {
+                feedback.textContent = 'ยอดเยี่ยมมาก! บันทึกคะแนนลงระบบเรียบร้อยแล้ว';
+            } else if (score >= 6) {
+                feedback.textContent = 'เก่งมากครับ! บันทึกคะแนนลงระบบเรียบร้อยแล้ว';
+            } else {
+                feedback.textContent = 'บันทึกคะแนนเรียบร้อยแล้ว ลองทบทวนบทเรียนเพิ่มเติมนะ';
+            }
+
+            document.querySelectorAll('.quiz-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-quiz-result').classList.add('active');
+            document.getElementById('quizForm').reset();
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

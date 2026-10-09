@@ -1,0 +1,165 @@
+/* ==========================================
+   PALETTE COLOR DEFINITIONS (จากรูปภาพ)
+   ========================================== */
+:root {
+  --citrus-zest: #FFA62B;  /* สีเหลืองส้ม */
+  --sea-breeze: #86C5FF;    /* สีฟ้าสว่าง */
+  --amalfi-tile: #2E5AA7;  /* สีน้ำเงินเข้ม */
+  --cream-gelato: #F8E6A0; /* สีครีมเหลืองอ่อน */
+  
+  /* สีเสริมสำหรับพื้นหลังและข้อความ */
+  --bg-light: #FFFDF5;     /* สีพื้นหลังขาวอมครีม สบายตา */
+  --text-dark: #1E293B;    /* สีตัวอักษรอ่านง่าย */
+  --white: #FFFFFF;
+}
+
+/* ตั้งค่าพื้นหลังและฟอนต์พื้นฐาน */
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  font-family: 'Prompt', 'Kanit', sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================
+   UTILITY CLASSES (เรียกใช้สีได้ทันที)
+   ========================================== */
+
+/* Background Colors */
+.bg-citrus { background-color: var(--citrus-zest); }
+.bg-sea { background-color: var(--sea-breeze); }
+.bg-amalfi { background-color: var(--amalfi-tile); }
+.bg-cream { background-color: var(--cream-gelato); }
+
+/* Text Colors */
+.text-citrus { color: var(--citrus-zest); }
+.text-sea { color: var(--sea-breeze); }
+.text-amalfi { color: var(--amalfi-tile); }
+.text-cream { color: var(--cream-gelato); }
+
+/* Border Colors */
+.border-citrus { border-color: var(--citrus-zest); }
+.border-sea { border-color: var(--sea-breeze); }
+.border-amalfi { border-color: var(--amalfi-tile); }
+.border-cream { border-color: var(--cream-gelato); }
+
+/* ==========================================
+   ICONS STYLING (จัดการไอคอนให้อยู่ในระเบียบเดียวกัน)
+   ========================================== */
+/* กำหนดค่าพื้นฐานให้ไอคอน FontAwesome ทุกตัวใช้งานร่วมกับธีมได้ลงตัว */
+i.fa-solid, i.fa-regular, i.fa-brands {
+  display: inline-block;
+  text-align: center;
+  font-style: normal;
+}
+
+/* คลาสช่วยปรับแต่งไอคอนเพิ่มเติมตามต้องการ */
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(46, 90, 167, 0.1);
+}
+
+/* ==========================================
+   COMPONENTS (ปุ่ม การ์ด และแถบนำทางที่ล็อกตำแหน่งนิ่งสนิท)
+   ========================================== */
+
+/* แถบนำทาง (Navbar - ล็อกตำแหน่งและขนาดให้คงที่ทุกหน้า ไม่ขยับ) */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--cream-gelato);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+.navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+/* ล็อกพื้นที่ฝั่งขวา (ปุ่มลงทะเบียน/โปรไฟล์) ให้มีความกว้างคงที่ ป้องกันเลย์เอาต์กระโดด */
+.navbar-right-fixed {
+  min-width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  color: var(--amalfi-tile);
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: var(--sea-breeze);
+  color: var(--white);
+}
+
+/* ปุ่มหลัก (Primary Button - สีเหลืองส้ม) */
+.btn-primary {
+  background-color: var(--citrus-zest);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 166, 43, 0.3);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #f0951b;
+  transform: translateY(-2px);
+}
+
+/* ปุ่มรอง (Secondary Button - สีน้ำเงิน) */
+.btn-secondary {
+  background-color: var(--amalfi-tile);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #234785;
+  transform: translateY(-2px);
+}
+
+/* การ์ดเนื้อหา (Card Component) */
+.card {
+  background-color: var(--white);
+  border: 2px solid var(--cream-gelato);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(46, 90, 167, 0.08);
+}
+
+/* ส่วน Banner ต้อนรับ (Hero Section Gradient) */
+.hero-banner {
+  background: linear-gradient(135deg, var(--sea-breeze) 0%, var(--cream-gelato) 100%);
+  border-radius: 24px;
+  padding: 40px 20px;
+  color: var(--amalfi-tile);
+}

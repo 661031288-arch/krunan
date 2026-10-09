@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทเรียน - วิทยาการคำนวณ ป.4</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Prompt) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Custom Palette (Citrus Zest, Sea Breeze, Amalfi Tile, Cream Gelato) -->
+    <style>
+        :root {
+            --citrus-zest: #FFA62B;  /* ส้มสว่าง Citrus Zest */
+            --sea-breeze: #86C5FF;   /* ฟ้า Sea Breeze */
+            --amalfi-tile: #2E5AA7;  /* น้ำเงินเข้ม Amalfi Tile */
+            --cream-gelato: #F8E6A0; /* ครีมเหลือง Cream Gelato */
+            --bg-light: #FFFDF7;     /* พื้นหลังขาวอมครีมสบายตา */
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+        }
+
+        .text-amalfi { color: var(--amalfi-tile); }
+        .text-citrus { color: var(--citrus-zest); }
+        .bg-amalfi { background-color: var(--amalfi-tile); }
+        .bg-citrus { background-color: var(--citrus-zest); }
+
+        .btn-citrus {
+            background-color: var(--citrus-zest);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-citrus:hover {
+            background-color: #e59320;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 166, 43, 0.3);
+        }
+
+        /* ซ่อนบทเรียนที่ไม่เลือก */
+        .lesson-content {
+            display: none;
+        }
+        .lesson-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- 1. แถบนำทางด้านบน (Navbar) 6 ปุ่ม -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- โลโก้ / ชื่อเว็บไซต์ -->
+                <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-blue-200">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-amalfi block leading-tight">
+                            วิทยาการคำนวณ ป.4
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <!-- ปุ่มนำทางหลัก 6 ปุ่ม -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="index.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        หน้าแรก
+                    </a>
+                    <a href="how-to-use.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        วิธีการใช้งาน
+                    </a>
+                    <a href="lessons.html" class="px-4 py-2 rounded-full font-semibold bg-amalfi text-white transition">
+                        บทเรียน
+                    </a>
+                    <a href="quizzes.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        แบบทดสอบ
+                    </a>
+                    <a href="activities.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        กิจกรรม
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        ติดต่อ
+                    </a>
+                </div>
+
+                <!-- ปุ่มลงชื่อเข้าใช้ / ลงทะเบียน -->
+                <div class="hidden md:flex items-center space-x-2 border-l border-slate-200 pl-4">
+                    <button class="px-4 py-2 text-sm font-semibold text-amalfi hover:text-blue-800 transition">
+                        ลงชื่อเข้าใช้
+                    </button>
+                    <button class="px-5 py-2 text-sm font-bold btn-citrus rounded-full shadow-md">
+                        ลงทะเบียน
+                    </button>
+                </div>
+
+                <!-- ปุ่มเมนูสำหรับหน้าจอมือถือ -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-amalfi hover:text-blue-900 focus:outline-none text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. ส่วนหัวเรื่องหน้าบทเรียน (Header Banner) -->
+    <header class="bg-gradient-to-r from-[#86C5FF]/30 via-[#F8E6A0]/40 to-[#86C5FF]/20 py-8 border-b border-[#F8E6A0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white px-4 py-1 rounded-full border border-sky-200 text-amalfi text-xs font-semibold shadow-sm mb-2">
+                <i class="fa-solid fa-book-open text-citrus"></i>
+                <span>หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-amalfi">บทเรียนวิทยาการคำนวณ ป.4</h1>
+        </div>
+    </header>
+
+    <!-- 3. ส่วนเนื้อหาบทเรียน (Main Content & Sidebar Tabs) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- เมนูเลือกลบทเรียน (Sidebar Tabs) -->
+            <div class="lg:col-span-1 space-y-3">
+                <h3 class="font-bold text-slate-700 text-sm mb-2 px-2 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-citrus"></i>
+                    <span>เลือกบทเรียน</span>
+                </h3>
+
+                <button onclick="switchLesson(1)" id="tab-1" class="lesson-tab w-full text-left p-4 rounded-2xl border-2 border-[#F8E6A0] bg-amalfi text-white font-semibold transition flex items-center justify-between shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-sm font-bold">1</span>
+                        <span class="text-sm">รู้จักอินเทอร์เน็ต</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <button onclick="switchLesson(2)" id="tab-2" class="lesson-tab w-full text-left p-4 rounded-2xl border-2 border-[#F8E6A0] bg-white text-slate-700 hover:bg-[#86C5FF]/20 font-semibold transition flex items-center justify-between shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-sm font-bold">2</span>
+                        <span class="text-sm">การค้นหาข้อมูล</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <button onclick="switchLesson(3)" id="tab-3" class="lesson-tab w-full text-left p-4 rounded-2xl border-2 border-[#F8E6A0] bg-white text-slate-700 hover:bg-[#86C5FF]/20 font-semibold transition flex items-center justify-between shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-sm font-bold">3</span>
+                        <span class="text-sm">มารยาทบนอินเทอร์เน็ต</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <button onclick="switchLesson(4)" id="tab-4" class="lesson-tab w-full text-left p-4 rounded-2xl border-2 border-[#F8E6A0] bg-white text-slate-700 hover:bg-[#86C5FF]/20 font-semibold transition flex items-center justify-between shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-sm font-bold">4</span>
+                        <span class="text-sm">ความปลอดภัยส่วนตัว</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+
+            <!-- กล่องแสดงเนื้อหาบทเรียน (Content Area) -->
+            <div class="lg:col-span-3 bg-white p-6 md:p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-sm">
+                
+                <!-- บทที่ 1 -->
+                <div id="unit1" class="lesson-content active space-y-6">
+                    <div class="flex items-center space-x-3 border-b-2 border-[#F8E6A0] pb-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-citrus uppercase tracking-wider">บทเรียนที่ 1</span>
+                            <h2 class="text-2xl font-bold text-amalfi">รู้จักอินเทอร์เน็ต</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed">
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2">
+                            <i class="fa-solid fa-globe text-citrus"></i>
+                            <span>1.1 อินเทอร์เน็ตคืออะไร?</span>
+                        </h3>
+                        <p class="bg-[#86C5FF]/10 p-4 rounded-2xl border-l-4 border-amalfi">
+                            <strong>อินเทอร์เน็ต (Internet)</strong> คือ เครือข่ายคอมพิวเตอร์ขนาดใหญ่ที่เชื่อมต่อเครื่องคอมพิวเตอร์และอุปกรณ์สื่อสารทั่วโลกเข้าด้วยกัน ทำให้เราสามารถสื่อสารและแลกเปลี่ยนข้อมูลกันได้อย่างรวดเร็ว
+                        </p>
+
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2 pt-2">
+                            <i class="fa-solid fa-thumbs-up text-citrus"></i>
+                            <span>1.2 ประโยชน์ของอินเทอร์เน็ต</span>
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 pl-2">
+                            <li><strong>การค้นหาข้อมูล:</strong> ค้นหาความรู้ บทเรียน รูปภาพ และวิดีโอได้ทั่วโลก</li>
+                            <li><strong>การติดต่อสื่อสาร:</strong> ส่งข้อความ โทรศัพท์ หรือวิดีโอคอลหาเพื่อนและครอบครัว</li>
+                            <li><strong>ความบันเทิง:</strong> ฟังเพลง ดูการ์ตูน และเล่นเกมเพื่อผ่อนคลาย</li>
+                            <li><strong>การเรียนรู้ออนไลน์:</strong> สามารถเรียนรู้สิ่งใหม่ๆ ได้ตลอดเวลา</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- บทที่ 2 -->
+                <div id="unit2" class="lesson-content space-y-6">
+                    <div class="flex items-center space-x-3 border-b-2 border-[#F8E6A0] pb-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-citrus uppercase tracking-wider">บทเรียนที่ 2</span>
+                            <h2 class="text-2xl font-bold text-amalfi">การค้นหาข้อมูลบนอินเทอร์เน็ต</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed">
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2">
+                            <i class="fa-solid fa-search text-citrus"></i>
+                            <span>2.1 โปรแกรมค้นหาข้อมูล (Search Engine)</span>
+                        </h3>
+                        <p>
+                            การค้นหาข้อมูลบนอินเทอร์เน็ต เรานิยมใช้โปรแกรมค้นหาที่เรียกว่า <strong>Search Engine</strong> เช่น Google, Bing เพื่อช่วยค้นหาเว็บที่มีข้อมูลตรงตามที่เราต้องการ
+                        </p>
+
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2 pt-2">
+                            <i class="fa-solid fa-key text-citrus"></i>
+                            <span>2.2 คำค้นหา (Keyword)</span>
+                        </h3>
+                        <div class="bg-[#F8E6A0]/40 p-4 rounded-2xl border border-[#F8E6A0]">
+                            <p class="font-semibold text-amalfi mb-1">เทคนิคการใช้ คำค้นหา (Keyword) ที่ดี:</p>
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                <li>ใช้คำที่สั้น กระชับ และตรงประเด็น เช่น "ประวัติวันลอยกระทง"</li>
+                                <li>ระบุคำที่เจาะจง เช่น "วิชาวิทยาการคำนวณ ป.4" แทนคำว่า "คอมพิวเตอร์"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- บทที่ 3 -->
+                <div id="unit3" class="lesson-content space-y-6">
+                    <div class="flex items-center space-x-3 border-b-2 border-[#F8E6A0] pb-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-citrus uppercase tracking-wider">บทเรียนที่ 3</span>
+                            <h2 class="text-2xl font-bold text-amalfi">มารยาทในการใช้งานอินเทอร์เน็ต</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed">
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2">
+                            <i class="fa-solid fa-heart text-citrus"></i>
+                            <span>3.1 มารยาทและข้อปฏิบัติตน</span>
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                                <h4 class="font-bold text-emerald-700 mb-2 flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check"></i> สิ่งที่ควรทำ
+                                </h4>
+                                <ul class="text-xs sm:text-sm space-y-1 text-emerald-900">
+                                    <li>• ใช้ภาษาที่สุภาพและเหมาะสม</li>
+                                    <li>• ให้เกียรติและอ้างอิงแหล่งที่มาของข้อมูล</li>
+                                    <li>• เคารพความเป็นส่วนตัวของผู้อื่น</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200">
+                                <h4 class="font-bold text-rose-700 mb-2 flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-xmark"></i> สิ่งที่ไม่ควรทำ
+                                </h4>
+                                <ul class="text-xs sm:text-sm space-y-1 text-rose-900">
+                                    <li>• พิมพ์ข้อความหยาบคายหรือกลั่นแกล้งผู้อื่น</li>
+                                    <li>• แอบอ้างนำผลงานผู้อื่นมาเป็นของตนเอง</li>
+                                    <li>• ส่งต่อข้อมูลที่ไม่เป็นความจริง (ข่าวปลอม)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- บทที่ 4 -->
+                <div id="unit4" class="lesson-content space-y-6">
+                    <div class="flex items-center space-x-3 border-b-2 border-[#F8E6A0] pb-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-citrus uppercase tracking-wider">บทเรียนที่ 4</span>
+                            <h2 class="text-2xl font-bold text-amalfi">ความปลอดภัยส่วนตัวบนออนไลน์</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed">
+                        <h3 class="font-bold text-lg text-amalfi flex items-center gap-2">
+                            <i class="fa-solid fa-[#fa-lock]"></i><i class="fa-solid fa-user-shield text-citrus"></i>
+                            <span>4.1 การปกป้องข้อมูลส่วนตัว</span>
+                        </h3>
+                        <p>
+                            ข้อมูลส่วนตัว เช่น <strong>ชื่อ-นามสกุล, ที่อยู่, เบอร์โทรศัพท์, รหัสผ่าน และเลขบัตรประชาชน</strong> เป็นสิ่งที่ไม่ควรเปิดเผยแก่คนแปลกหน้าบนอินเทอร์เน็ต
+                        </p>
+
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                            <h4 class="font-bold text-amber-800 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-citrus"></i>
+                                <span>ข้อควรระวังสำคัญ!</span>
+                            </h4>
+                            <p class="text-xs sm:text-sm text-amber-900">
+                                เมื่อพบเจอบุคคลแปลกหน้ามาชวนคุย ข่มขู่ หรือขอข้อมูลส่วนตัว ให้รีบบอกคุณครู หรือผู้ปกครองทันที และห้ามแอบนัดพบกับคนแปลกหน้าบนอินเทอร์เน็ตเด็ดขาด
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 4. ฟุตเตอร์ (Footer) -->
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="mt-1 text-xs text-slate-400">หน่วยการเรียนรู้เรื่อง การใช้งานอินเทอร์เน็ต</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript สำหรับสลับหน้าบทเรียน -->
+    <script>
+        function switchLesson(lessonNum) {
+            // ซ่อนบทเรียนทั้งหมด
+            const contents = document.querySelectorAll('.lesson-content');
+            contents.forEach(c => c.classList.remove('active'));
+
+            // แสดงบทเรียนที่เลือก
+            document.getElementById('unit' + lessonNum).classList.add('active');
+
+            // ปรับแต่งสไตล์ปุ่มแท็บ
+            const tabs = document.querySelectorAll('.lesson-tab');
+            tabs.forEach(t => {
+                t.classList.remove('bg-amalfi', 'text-white');
+                t.classList.add('bg-white', 'text-slate-700');
+            });
+
+            const activeTab = document.getElementById('tab-' + lessonNum);
+            activeTab.classList.remove('bg-white', 'text-slate-700');
+            activeTab.classList.add('bg-amalfi', 'text-white');
+        }
+
+        // ตรวจสอบ URL Hash เช่น lessons.html#unit2
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if(hash === '#unit1') switchLesson(1);
+            else if(hash === '#unit2') switchLesson(2);
+            else if(hash === '#unit3') switchLesson(3);
+            else if(hash === '#unit4') switchLesson(4);
+        });
+    </script>
+
+</body>
+</html>

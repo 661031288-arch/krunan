@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>หน้าแรก - วิทยาการคำนวณ ป.4</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Prompt) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --citrus-zest: #FFA62B;
+            --sea-breeze: #86C5FF;
+            --amalfi-tile: #2E5AA7;
+            --cream-gelato: #F8E6A0;
+            --bg-light: #FFFDF7;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .text-amalfi { color: var(--amalfi-tile); }
+        .text-citrus { color: var(--citrus-zest); }
+        .bg-amalfi { background-color: var(--amalfi-tile); }
+        .bg-citrus { background-color: var(--citrus-zest); }
+
+        .bg-hero-gradient {
+            background: linear-gradient(135deg, #86C5FF 0%, #BFE0FF 50%, #F8E6A0 100%);
+        }
+
+        .btn-citrus {
+            background-color: var(--citrus-zest);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-citrus:hover {
+            background-color: #e59320;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 166, 43, 0.3);
+        }
+
+        .btn-amalfi {
+            background-color: var(--amalfi-tile);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-amalfi:hover {
+            background-color: #234785;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(46, 90, 167, 0.25);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen antialiased">
+
+    <!-- แถบนำทางด้านบน (Navbar ล็อกตำแหน่งนิ่งสนิท) -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- โลโก้ฝั่งซ้าย -->
+                <a href="index.html" class="flex items-center space-x-3 cursor-pointer shrink-0">
+                    <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-amalfi block leading-tight">วิทยาการคำนวณ ป.4</span>
+                        <span class="text-xs text-slate-500 font-medium block">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <!-- เมนูกลาง (6 ปุ่ม) -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2 shrink-0">
+                    <a href="index.html" class="px-4 py-2 rounded-full font-semibold bg-amalfi text-white text-sm transition">หน้าแรก</a>
+                    <a href="how-to-use.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">วิธีการใช้งาน</a>
+                    <a href="lessons.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">บทเรียน</a>
+                    <a href="quizzes.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">แบบทดสอบ</a>
+                    <a href="activities.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">กิจกรรม</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">ติดต่อ</a>
+                </div>
+
+                <!-- ฝั่งขวา (ปุ่มลงทะเบียน/โปรไฟล์ ล็อกขนาดไม่ให้ดันเลย์เอาต์) -->
+                <div class="hidden md:flex items-center space-x-2 border-l border-slate-200 pl-4 shrink-0">
+                    <div id="userProfile" class="hidden text-xs font-bold text-amalfi bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200">
+                        <i class="fa-solid fa-circle-user text-citrus mr-1"></i> <span id="displayStdName"></span>
+                    </div>
+                    <button id="btnRegNav" onclick="openRegModal()" class="px-5 py-2 text-sm font-bold btn-citrus rounded-full shadow-md cursor-pointer">
+                        <i class="fa-solid fa-user-plus mr-1"></i> ลงทะเบียน
+                    </button>
+                </div>
+
+                <!-- ปุ่มมือถือ -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-amalfi p-2 rounded-xl active:bg-slate-100">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F8E6A0] px-4 pt-2 pb-4 space-y-2 shadow-lg">
+            <a href="index.html" class="block px-4 py-2 rounded-xl font-semibold bg-amalfi text-white text-sm">หน้าแรก</a>
+            <a href="how-to-use.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">วิธีการใช้งาน</a>
+            <a href="lessons.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">บทเรียน</a>
+            <a href="quizzes.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">แบบทดสอบ</a>
+            <a href="activities.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">กิจกรรม</a>
+            <a href="contact.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">ติดต่อ</a>
+            <div class="pt-2 border-t border-slate-100">
+                <button onclick="openRegModal()" class="w-full py-2.5 text-center font-bold btn-citrus rounded-xl shadow-sm text-sm">
+                    <i class="fa-solid fa-user-plus mr-1"></i> ลงทะเบียนเข้าสู่ระบบ
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ส่วนแบนเนอร์หลัก (Hero Banner) -->
+    <header class="bg-hero-gradient py-12 md:py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full border border-white text-amalfi text-sm font-semibold shadow-sm">
+                        <i class="fa-solid fa-sparkles text-citrus"></i>
+                        <span>ยินดีต้อนรับเข้าสู่เว็บไซต์การเรียนรู้</span>
+                    </div>
+                    
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-amalfi leading-tight">
+                        เรียนรู้การใช้งาน <br>
+                        <span class="text-slate-800">อินเทอร์เน็ตอย่างปลอดภัย</span>
+                    </h1>
+                    
+                    <p class="text-slate-700 text-base md:text-lg max-w-xl mx-auto md:mx-0 font-light">
+                        สื่อการเรียนรู้อิเล็กทรอนิกส์ วิชาวิทยาการคำนวณ สำหรับนักเรียนชั้นประถมศึกษาปีที่ 4 สนุกกับการค้นหาข้อมูล มารยาทออนไลน์ และการปกป้องข้อมูลส่วนตัว!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 pt-2">
+                        <a href="lessons.html" class="px-8 py-4 btn-citrus font-bold rounded-2xl shadow-lg text-center flex items-center justify-center space-x-2">
+                            <span>เริ่มต้นเรียนรู้</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <button onclick="openRegModal()" class="px-8 py-4 bg-white hover:bg-slate-50 text-amalfi font-bold rounded-2xl border-2 border-white transition text-center flex items-center justify-center space-x-2 shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-user-plus text-citrus"></i>
+                            <span id="btnRegText">ลงทะเบียนนักเรียน</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center">
+                    <div class="w-full max-w-md bg-white p-6 rounded-3xl shadow-xl border-4 border-[#F8E6A0] relative">
+                        <div class="bg-[#86C5FF]/20 rounded-2xl p-8 flex flex-col items-center text-center space-y-4">
+                            <div class="w-28 h-28 bg-amalfi text-white rounded-full flex items-center justify-center text-5xl shadow-lg">
+                                <i class="fa-solid fa-globe animate-pulse"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-amalfi">ท่องโลกอินเทอร์เน็ต ป.4</h3>
+                            <p class="text-xs text-slate-600">เรียนรู้ 4 บทเรียนหลักเพื่อการใช้งานอินเทอร์เน็ตอย่างชาญฉลาด</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- เมนูบทเรียนทางลัด -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-amalfi">หน่วยการเรียนรู้ทั้ง 4 บท</h2>
+            <p class="text-slate-500 text-sm">คลิกเลือกบทเรียนเพื่อเริ่มศึกษาเนื้อหาและทำกิจกรรม</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="lessons.html" class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] hover:border-amalfi hover:shadow-lg transition space-y-3 block">
+                <div class="w-12 h-12 bg-sky-100 text-amalfi rounded-2xl flex items-center justify-center text-2xl font-bold">1</div>
+                <h3 class="font-bold text-slate-800 text-base">รู้จักอินเทอร์เน็ต</h3>
+                <p class="text-xs text-slate-500">ความหมาย ประโยชน์ และวิธีการเชื่อมต่ออินเทอร์เน็ต</p>
+            </a>
+
+            <a href="lessons.html" class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] hover:border-emerald-500 hover:shadow-lg transition space-y-3 block">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-2xl font-bold">2</div>
+                <h3 class="font-bold text-slate-800 text-base">การค้นหาข้อมูล</h3>
+                <p class="text-xs text-slate-500">การใช้ Search Engine และการใช้ Keyword ค้นหา</p>
+            </a>
+
+            <a href="lessons.html" class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] hover:border-amber-500 hover:shadow-lg transition space-y-3 block">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl font-bold">3</div>
+                <h3 class="font-bold text-slate-800 text-base">มารยาทบนอินเทอร์เน็ต</h3>
+                <p class="text-xs text-slate-500">ข้อปฏิบัติ ภาษา และการเคารพสิทธิผู้อื่น</p>
+            </a>
+
+            <a href="lessons.html" class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] hover:border-rose-500 hover:shadow-lg transition space-y-3 block">
+                <div class="w-12 h-12 bg-rose-100 text-rose-700 rounded-2xl flex items-center justify-center text-2xl font-bold">4</div>
+                <h3 class="font-bold text-slate-800 text-base">ความปลอดภัยส่วนตัว</h3>
+                <p class="text-xs text-slate-500">การตั้งรหัสผ่าน การปกป้องข้อมูล และภัยคุกคาม</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- ป๊อปอัปฟอร์มลงทะเบียน -->
+    <div id="regModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border-2 border-[#F8E6A0] relative">
+            <button onclick="closeRegModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2">
+                    <i class="fa-solid fa-address-card"></i>
+                </div>
+                <h3 class="text-xl font-bold text-amalfi">ลงทะเบียนนักเรียน</h3>
+                <p class="text-xs text-slate-500 mt-0.5">กรอกข้อมูลเพื่อบันทึกเข้าสู่ระบบเรียนรู้</p>
+            </div>
+
+            <form onsubmit="submitRegistration(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">รหัสนักเรียน</label>
+                    <input type="text" id="regStdId" required placeholder="เช่น 288" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อ - นามสกุล</label>
+                    <input type="text" id="regStdName" required placeholder="เช่น อัมบียา" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">ชั้น / เลขที่</label>
+                    <input type="text" id="regStdClass" required placeholder="เช่น ป.4/1 เลขที่ 1" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm">
+                </div>
+                <button type="submit" id="btnRegSubmit" class="w-full py-3 btn-citrus font-bold rounded-xl text-center shadow-md text-sm cursor-pointer">
+                    ยืนยันการลงทะเบียน
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ฟุตเตอร์ -->
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="mt-1 text-xs text-slate-400">หน่วยการเรียนรู้เรื่อง การใช้งานอินเทอร์เน็ตอย่างปลอดภัย</p>
+        </div>
+    </footer>
+
+    <!-- Script ควบคุม -->
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHQQ3sR6JRujo3T_3ocpmu0-LAGiicoLyDOLWySFgbJslp0JE7IUZK3USh1a38ctZuIQ/exec";
+
+        window.onload = function() {
+            checkLoginStatus();
+        };
+
+        function checkLoginStatus() {
+            const stdName = localStorage.getItem('stdName');
+            if (stdName) {
+                document.getElementById('userProfile').classList.remove('hidden');
+                document.getElementById('displayStdName').textContent = stdName;
+                document.getElementById('btnRegNav').classList.add('hidden');
+                document.getElementById('btnRegText').textContent = "เปลี่ยนข้อมูลผู้ใช้";
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function openRegModal() {
+            document.getElementById('regStdId').value = localStorage.getItem('stdId') || '';
+            document.getElementById('regStdName').value = localStorage.getItem('stdName') || '';
+            document.getElementById('regStdClass').value = localStorage.getItem('stdClass') || '';
+            document.getElementById('regModal').classList.remove('hidden');
+        }
+
+        function closeRegModal() {
+            document.getElementById('regModal').classList.add('hidden');
+        }
+
+        function submitRegistration(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnRegSubmit');
+            btn.disabled = true;
+            btn.innerText = "กำลังบันทึกข้อมูล...";
+
+            const idVal = document.getElementById('regStdId').value.trim();
+            const nameVal = document.getElementById('regStdName').value.trim();
+            const classVal = document.getElementById('regStdClass').value.trim();
+
+            localStorage.setItem('stdId', idVal);
+            localStorage.setItem('stdName', nameVal);
+            localStorage.setItem('stdClass', classVal);
+
+            const payload = {
+                studentId: idVal,
+                name: nameVal,
+                studentClass: classVal,
+                type: "ลงทะเบียน"
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert('ลงทะเบียนสำเร็จแล้ว!');
+                btn.disabled = false;
+                btn.innerText = "ยืนยันการลงทะเบียน";
+                closeRegModal();
+                checkLoginStatus();
+            }).catch(err => {
+                alert('ลงทะเบียนสำเร็จ!');
+                btn.disabled = false;
+                btn.innerText = "ยืนยันการลงทะเบียน";
+                closeRegModal();
+                checkLoginStatus();
+            });
+        }
+    </script>
+</body>
+</html>

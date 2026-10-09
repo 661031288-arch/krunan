@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>กิจกรรมและเกมการเรียนรู้ - วิทยาการคำนวณ ป.4</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Prompt) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex flex-col min-h-screen antialiased">
+
+    <!-- แถบนำทาง (Navbar) -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center space-x-3 cursor-pointer shrink-0">
+                    <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-amalfi block leading-tight">วิทยาการคำนวณ ป.4</span>
+                        <span class="text-xs text-slate-500 font-medium block">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2 shrink-0">
+                    <a href="index.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">หน้าแรก</a>
+                    <a href="how-to-use.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">วิธีการใช้งาน</a>
+                    <a href="lessons.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">บทเรียน</a>
+                    <a href="quizzes.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">แบบทดสอบ</a>
+                    <a href="activities.html" class="px-4 py-2 rounded-full font-semibold bg-amalfi text-white text-sm transition">กิจกรรม</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">ติดต่อ</a>
+                </div>
+
+                <div class="hidden md:flex items-center justify-end space-x-2 border-l border-slate-200 pl-4 shrink-0" style="min-width: 170px;">
+                    <div id="userProfile" class="hidden text-xs font-bold text-amalfi bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200 truncate max-w-[150px]">
+                        <i class="fa-solid fa-circle-user text-citrus mr-1"></i> <span id="displayStdName"></span>
+                    </div>
+                    <button id="btnRegNav" onclick="openRegModal()" class="px-5 py-2 text-sm font-bold btn-primary rounded-full shadow-md cursor-pointer shrink-0">
+                        <i class="fa-solid fa-user-plus mr-1"></i> ลงทะเบียน
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center shrink-0">
+                    <button onclick="toggleMobileMenu()" class="text-amalfi p-2 rounded-xl active:bg-slate-100">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F8E6A0] px-4 pt-2 pb-4 space-y-2 shadow-lg">
+            <a href="index.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600">หน้าแรก</a>
+            <a href="how-to-use.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600">วิธีการใช้งาน</a>
+            <a href="lessons.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600">บทเรียน</a>
+            <a href="quizzes.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600">แบบทดสอบ</a>
+            <a href="activities.html" class="block px-4 py-2 rounded-xl font-semibold bg-amalfi text-white text-sm">กิจกรรม</a>
+            <a href="contact.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600">ติดต่อ</a>
+        </div>
+    </nav>
+
+    <!-- Header หน้ากิจกรรม -->
+    <header class="hero-banner my-6 max-w-7xl mx-auto w-full px-6 text-center">
+        <div class="inline-flex items-center space-x-2 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full border border-white text-amalfi text-sm font-semibold shadow-sm mb-3">
+            <i class="fa-solid fa-gamepad text-citrus"></i>
+            <span>โซนกิจกรรมและมินิเกมสนุกๆ</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-extrabold text-amalfi">ลานประลองความรู้ 4 บทเรียน</h1>
+        <p class="text-slate-700 mt-2 text-sm md:text-base">เลือกบทเรียนแล้วสนุกไปกับมินิเกมจับคู่และทายปัญหาเพื่อทดสอบความเข้าใจกันเลย!</p>
+    </header>
+
+    <!-- เนื้อหากิจกรรม 4 บท (บทละ 2 กิจกรรม) -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-12">
+
+        <!-- ================= บทที่ 1 ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-sky-200 pb-3">
+                <div class="w-10 h-10 bg-sky-100 text-amalfi rounded-xl flex items-center justify-center font-bold text-lg">1</div>
+                <h2 class="text-xl font-bold text-amalfi">บทที่ 1: รู้จักอินเทอร์เน็ต (Internet Basics)</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- กิจกรรมที่ 1.1 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-sky-100 text-amalfi text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 1.1</span>
+                        <i class="fa-solid fa-network-wired text-citrus text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">จับคู่อุปกรณ์เชื่อมต่อเน็ต</h3>
+                    <p class="text-xs text-slate-500">เลือกคำศัพท์ให้ตรงกับหน้าที่ของอุปกรณ์เครือข่าย</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: อุปกรณ์ใดทำหน้าที่กระจายสัญญาณ Wi-Fi ภายในบ้าน?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, true, 'msg1-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-sky-50 font-medium">เราเตอร์ (Router)</button>
+                            <button onclick="checkGame(this, false, 'msg1-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-sky-50 font-medium">สายไฟบ้าน</button>
+                        </div>
+                        <div id="msg1-1" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+
+                <!-- กิจกรรมที่ 1.2 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-sky-100 text-amalfi text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 1.2</span>
+                        <i class="fa-solid fa-globe text-citrus text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">ประโยชน์ของอินเทอร์เน็ต</h3>
+                    <p class="text-xs text-slate-500">กิจกรรมเลือกตอบ: ข้อใดคือประโยชน์สูงสุดของอินเทอร์เน็ต?</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">สถานการณ์: น้องเก่งต้องการค้นหาข้อมูลทำรายงานส่งคุณครู ควรใช้สิ่งใด?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, true, 'msg1-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-sky-50 font-medium">ค้นหาผ่านเว็บไซต์ความรู้</button>
+                            <button onclick="checkGame(this, false, 'msg1-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-sky-50 font-medium">เปิดเครื่องคิดเลข</button>
+                        </div>
+                        <div id="msg1-2" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= บทที่ 2 ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-emerald-200 pb-3">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-lg">2</div>
+                <h2 class="text-xl font-bold text-amalfi">บทที่ 2: การค้นหาข้อมูล (Information Search)</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- กิจกรรมที่ 2.1 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 2.1</span>
+                        <i class="fa-solid fa-magnifying-glass text-emerald-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">นักสืบคีย์เวิร์ด (Keyword)</h3>
+                    <p class="text-xs text-slate-500">เลือกคำค้นหาที่ดีที่สุดเพื่อหาเรื่องไดโนเสาร์</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: หากต้องการหาข้อมูลไดโนเสาร์กินพืช ควรใช้คำค้นว่าอะไรดีที่สุด?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, false, 'msg2-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-emerald-50 font-medium">สัตว์ดึกดำบรรพ์</button>
+                            <button onclick="checkGame(this, true, 'msg2-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-emerald-50 font-medium">ไดโนเสาร์ กินพืช</button>
+                        </div>
+                        <div id="msg2-1" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+
+                <!-- กิจกรรมที่ 2.2 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 2.2</span>
+                        <i class="fa-solid fa-shield-halved text-emerald-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">แยกแยะเว็บน่าเชื่อถือ</h3>
+                    <p class="text-xs text-slate-500">เลือกเว็บไซต์ที่ปลอดภัยและน่าเชื่อถือในการอ้างอิงข้อมูล</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: เว็บไซต์หน่วยงานราชการหรือการศึกษา มักลงท้ายด้วยอะไร?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, true, 'msg2-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-emerald-50 font-medium">.go.th หรือ .ac.th</button>
+                            <button onclick="checkGame(this, false, 'msg2-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-emerald-50 font-medium">.xxx หรือ .fake</button>
+                        </div>
+                        <div id="msg2-2" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= บทที่ 3 ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-amber-200 pb-3">
+                <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center font-bold text-lg">3</div>
+                <h2 class="text-xl font-bold text-amalfi">บทที่ 3: มารยาทบนอินเทอร์เน็ต (Netiquette)</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- กิจกรรมที่ 3.1 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 3.1</span>
+                        <i class="fa-solid fa-comments text-amber-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">แชทอย่างไรให้เพื่อนรัก</h3>
+                    <p class="text-xs text-slate-500">เลือกข้อความที่แสดงมารยาทที่ดีในการคุยออนไลน์</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">สถานการณ์: เมื่อต้องการให้เพื่อนช่วยส่งการบ้าน ควรพิมพ์อย่างไร?</p>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button onclick="checkGame(this, true, 'msg3-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-amber-50 text-left font-medium">"สวัสดีจ้า รบกวนขอการบ้านวิชาวิทยาการคำนวณหน่อยนะ ขอบใจจ้า"</button>
+                            <button onclick="checkGame(this, false, 'msg3-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-amber-50 text-left font-medium">"ส่งการบ้านมาเดี๋ยวนี้ เร็วๆ!"</button>
+                        </div>
+                        <div id="msg3-1" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+
+                <!-- กิจกรรมที่ 3.2 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 3.2</span>
+                        <i class="fa-solid fa-copyright text-amber-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">ให้เกียรติเจ้าของผลงาน</h3>
+                    <p class="text-xs text-slate-500">เรียนรู้การคัดลอกและอ้างอิงภาพหรือข้อความ</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: หากนำรูปภาพของผู้อื่นมาใส่ในรายงาน ควรทำอย่างไร?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, true, 'msg3-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-amber-50 font-medium">ระบุแหล่งที่มาของภาพ</button>
+                            <button onclick="checkGame(this, false, 'msg3-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-amber-50 font-medium">บอกว่าเป็นผลงานตัวเอง</button>
+                        </div>
+                        <div id="msg3-2" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= บทที่ 4 ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-rose-200 pb-3">
+                <div class="w-10 h-10 bg-rose-100 text-rose-700 rounded-xl flex items-center justify-center font-bold text-lg">4</div>
+                <h2 class="text-xl font-bold text-amalfi">บทที่ 4: ความปลอดภัยส่วนตัว (Digital Safety)</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- กิจกรรมที่ 4.1 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-rose-100 text-rose-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 4.1</span>
+                        <i class="fa-solid fa-key text-rose-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">รหัสผ่านลับสุดยอด</h3>
+                    <p class="text-xs text-slate-500">เลือกตั้งรหัสผ่านที่คาดเดายากและปลอดภัยที่สุด</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: รหัสผ่านชุดใดมีความปลอดภัยสูงที่สุด?</p>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button onclick="checkGame(this, false, 'msg4-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-rose-50 font-medium">12345678</button>
+                            <button onclick="checkGame(this, true, 'msg4-1')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-rose-50 font-medium">P4$w0rd#2026</button>
+                        </div>
+                        <div id="msg4-1" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+
+                <!-- กิจกรรมที่ 4.2 -->
+                <div class="card space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-rose-100 text-rose-700 text-xs font-bold px-3 py-1 rounded-full">มินิเกมที่ 4.2</span>
+                        <i class="fa-solid fa-user-secret text-rose-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">ปกป้องข้อมูลส่วนตัว</h3>
+                    <p class="text-xs text-slate-500">ข้อมูลใดที่ไม่ควรบอกคนแปลกหน้าบนอินเทอร์เน็ต</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                        <p class="text-xs font-bold text-slate-700">คำถาม: สิ่งใดห้ามบอกคนอื่นบนโลกออนไลน์เด็ดขาด?</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkGame(this, true, 'msg4-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-rose-50 font-medium">บ้านเลขที่และเบอร์โทรศัพท์</button>
+                            <button onclick="checkGame(this, false, 'msg4-2')" class="p-2 text-xs bg-white border border-slate-300 rounded-xl hover:bg-rose-50 font-medium">สีที่ฉันชอบที่สุด</button>
+                        </div>
+                        <div id="msg4-2" class="text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="mt-1 text-xs text-slate-400">หน่วยการเรียนรู้เรื่อง การใช้งานอินเทอร์เน็ตอย่างปลอดภัย</p>
+        </div>
+    </footer>
+
+    <!-- Script สำหรับตรวจคำตอบมินิเกม -->
+    <script>
+        window.onload = function() {
+            const stdName = localStorage.getItem('stdName');
+            if (stdName) {
+                document.getElementById('userProfile').classList.remove('hidden');
+                document.getElementById('displayStdName').textContent = stdName;
+                document.getElementById('btnRegNav').classList.add('hidden');
+            }
+        };
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function checkGame(button, isCorrect, msgId) {
+            const parent = button.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            
+            // ปิดการคลิกปุ่มทั้งหมดในข้อนั้นหลังเลือกแล้ว
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-60');
+            });
+
+            const msgBox = document.getElementById(msgId);
+            msgBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                button.classList.remove('bg-white', 'border-slate-300');
+                button.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+                msgBox.innerHTML = '<span class="text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i> ถูกต้องเก่งมากครับ! 🎉</span>';
+            } else {
+                button.classList.remove('bg-white', 'border-slate-300');
+                button.classList.add('bg-rose-500', 'text-white', 'border-rose-500');
+                msgBox.innerHTML = '<span class="text-rose-600"><i class="fa-solid fa-circle-xmark mr-1"></i> ยังไม่ถูกต้อง ลองใหม่อีกครั้งนะ!</span>';
+            }
+        }
+    </script>
+</body>
+</html>

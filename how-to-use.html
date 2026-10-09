@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิธีการใช้งาน - วิทยาการคำนวณ ป.4</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Prompt) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Custom Palette (Citrus Zest, Sea Breeze, Amalfi Tile, Cream Gelato) -->
+    <style>
+        :root {
+            --citrus-zest: #FFA62B;  /* ส้มสว่าง Citrus Zest */
+            --sea-breeze: #86C5FF;   /* ฟ้า Sea Breeze */
+            --amalfi-tile: #2E5AA7;  /* น้ำเงินเข้ม Amalfi Tile */
+            --cream-gelato: #F8E6A0; /* ครีมเหลือง Cream Gelato */
+            --bg-light: #FFFDF7;     /* พื้นหลังขาวอมครีมสบายตา */
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+        }
+
+        .text-amalfi { color: var(--amalfi-tile); }
+        .text-citrus { color: var(--citrus-zest); }
+        .bg-amalfi { background-color: var(--amalfi-tile); }
+        .bg-citrus { background-color: var(--citrus-zest); }
+
+        .btn-citrus {
+            background-color: var(--citrus-zest);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-citrus:hover {
+            background-color: #e59320;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 166, 43, 0.3);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- 1. แถบนำทางด้านบน (Navbar) 6 ปุ่ม -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- โลโก้ / ชื่อเว็บไซต์ -->
+                <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-blue-200">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-amalfi block leading-tight">
+                            วิทยาการคำนวณ ป.4
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <!-- ปุ่มนำทางหลัก 6 ปุ่ม -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="index.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        หน้าแรก
+                    </a>
+                    <a href="how-to-use.html" class="px-4 py-2 rounded-full font-semibold bg-amalfi text-white transition">
+                        วิธีการใช้งาน
+                    </a>
+                    <a href="lessons.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        บทเรียน
+                    </a>
+                    <a href="quizzes.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        แบบทดสอบ
+                    </a>
+                    <a href="activities.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        กิจกรรม
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 transition">
+                        ติดต่อ
+                    </a>
+                </div>
+
+                <!-- ปุ่มลงชื่อเข้าใช้ / ลงทะเบียน -->
+                <div class="hidden md:flex items-center space-x-2 border-l border-slate-200 pl-4">
+                    <button class="px-4 py-2 text-sm font-semibold text-amalfi hover:text-blue-800 transition">
+                        ลงชื่อเข้าใช้
+                    </button>
+                    <button class="px-5 py-2 text-sm font-bold btn-citrus rounded-full shadow-md">
+                        ลงทะเบียน
+                    </button>
+                </div>
+
+                <!-- ปุ่มเมนูสำหรับหน้าจอมือถือ -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-amalfi hover:text-blue-900 focus:outline-none text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. ส่วนหัวเรื่องหน้าวิธีการใช้งาน (Header Banner) -->
+    <header class="bg-gradient-to-r from-[#86C5FF]/30 via-[#F8E6A0]/40 to-[#86C5FF]/20 py-10 border-b border-[#F8E6A0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white px-4 py-1.5 rounded-full border border-sky-200 text-amalfi text-sm font-semibold shadow-sm mb-3">
+                <i class="fa-solid fa-circle-info text-citrus"></i>
+                <span>คู่มือการใช้งานเว็บไซต์</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amalfi">วิธีการใช้งานและขั้นตอนการเรียนรู้</h1>
+            <p class="text-slate-600 mt-2 max-w-xl mx-auto text-sm md:text-base">
+                คำแนะนำง่ายๆ สำหรับนักเรียนชั้น ป.4 ในการเรียนรู้และทำกิจกรรมบนเว็บไซต์สื่อการเรียนรู้อิเล็กทรอนิกส์
+            </p>
+        </div>
+    </header>
+
+    <!-- 3. ส่วนเนื้อหาหลัก (Steps & Instructions) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 flex-grow">
+
+        <!-- 3.1 ขั้นตอนการเรียนรู้ 5 ขั้น -->
+        <section>
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-2xl font-bold text-amalfi flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-route text-citrus"></i>
+                    <span>5 ขั้นตอนการเรียนรู้ง่ายๆ</span>
+                </h2>
+                <p class="text-slate-500 text-sm mt-1">ปฏิบัติตามลำดับขั้นตอนเพื่อผลการเรียนรู้ที่ดีที่สุด</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                
+                <!-- ขั้นตอนที่ 1 -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amalfi text-white rounded-full flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                        1
+                    </div>
+                    <div class="text-citrus text-2xl mb-2"><i class="fa-solid fa-[#fa-user-check]"></i><i class="fa-solid fa-user-plus"></i></div>
+                    <h3 class="font-bold text-amalfi text-base mb-1">ลงทะเบียน / เข้าสู่ระบบ</h3>
+                    <p class="text-slate-500 text-xs">กรอกชื่อ-นามสกุล และเลขที่เพื่อเริ่มเก็บบันทึกคะแนน</p>
+                </div>
+
+                <!-- ขั้นตอนที่ 2 -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amalfi text-white rounded-full flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                        2
+                    </div>
+                    <div class="text-citrus text-2xl mb-2"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <h3 class="font-bold text-amalfi text-base mb-1">ทำแบบทดสอบก่อนเรียน</h3>
+                    <p class="text-slate-500 text-xs">วัดความรู้พื้นฐานก่อนเริ่มเรียน (Pre-test)</p>
+                </div>
+
+                <!-- ขั้นตอนที่ 3 -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amalfi text-white rounded-full flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                        3
+                    </div>
+                    <div class="text-citrus text-2xl mb-2"><i class="fa-solid fa-book-open"></i></div>
+                    <h3 class="font-bold text-amalfi text-base mb-1">ศึกษาเนื้อหา 4 บทเรียน</h3>
+                    <p class="text-slate-500 text-xs">อ่านเนื้อหา ดูภาพประกอบ และคลิปวิดีโอเสริมความเข้าใจ</p>
+                </div>
+
+                <!-- ขั้นตอนที่ 4 -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amalfi text-white rounded-full flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                        4
+                    </div>
+                    <div class="text-citrus text-2xl mb-2"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3 class="font-bold text-amalfi text-base mb-1">ทำกิจกรรมการเรียนรู้</h3>
+                    <p class="text-slate-500 text-xs">ร่วมทำกิจกรรมอินเทอร์แอคทีฟ ทบทวนความรู้</p>
+                </div>
+
+                <!-- ขั้นตอนที่ 5 -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-amalfi text-white rounded-full flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                        5
+                    </div>
+                    <div class="text-citrus text-2xl mb-2"><i class="fa-solid fa-award"></i></div>
+                    <h3 class="font-bold text-amalfi text-base mb-1">ทำแบบทดสอบหลังเรียน</h3>
+                    <p class="text-slate-500 text-xs">วัดความก้าวหน้าจากการเรียน (Post-test)</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3.2 คำแนะนำสัญลักษณ์บนเว็บไซต์ -->
+        <section class="bg-white p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-sm">
+            <h2 class="text-xl font-bold text-amalfi mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-icons text-citrus"></i>
+                <span>สัญลักษณ์สำคัญในระบบ</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-[#86C5FF]/30 text-amalfi rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amalfi text-sm">บทเรียน</h4>
+                        <p class="text-slate-500 text-xs">คลิกเพื่อเข้าอ่านเนื้อหาและบทเรียนอิเล็กทรอนิกส์</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-[#86C5FF]/30 text-amalfi rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid fa-circle-play"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amalfi text-sm">วิดีโอ</h4>
+                        <p class="text-slate-500 text-xs">คลิกเพื่อรับชมสื่อวิดีโอประกอบการเรียนรู้</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-[#86C5FF]/30 text-amalfi rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amalfi text-sm">แบบทดสอบ</h4>
+                        <p class="text-slate-500 text-xs">ทำแบบทดสอบและตรวจคำตอบทันทีเมื่อทำเสร็จ</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-[#86C5FF]/30 text-amalfi rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amalfi text-sm">ใบงาน / กิจกรรม</h4>
+                        <p class="text-slate-500 text-xs">ดาวน์โหลดใบงาน หรือทำกิจกรรมเสริมทักษะ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3.3 คำแนะนำสำหรับครูและผู้ปกครอง -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <div class="bg-[#86C5FF]/20 p-6 rounded-3xl border border-[#86C5FF]">
+                <h3 class="font-bold text-amalfi text-lg mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-chalkboard-user text-citrus"></i>
+                    <span>ข้อแนะนำสำหรับคุณครู</span>
+                </h3>
+                <ul class="text-slate-700 text-sm space-y-2 list-disc list-inside">
+                    <li>ใช้นำเข้าสู่บทเรียน หรือให้นักเรียนศึกษาด้วยตนเอง</li>
+                    <li>ให้นักเรียนทำแบบทดสอบก่อนเรียนก่อนเริ่มบทเรียนแรก</li>
+                    <li>ใช้ติดตามพัฒนาการของนักเรียนผ่านผลคะแนนทดสอบหลังเรียน</li>
+                </ul>
+            </div>
+
+            <div class="bg-[#F8E6A0]/40 p-6 rounded-3xl border border-[#F8E6A0]">
+                <h3 class="font-bold text-amalfi text-lg mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-house-chimney-user text-citrus"></i>
+                    <span>ข้อแนะนำสำหรับผู้ปกครอง</span>
+                </h3>
+                <ul class="text-slate-700 text-sm space-y-2 list-disc list-inside">
+                    <li>ให้คำแนะนำแก่นักเรียนระหว่างการอ่านเนื้อหาบทเรียน</li>
+                    <li>กระตุ้นให้นักเรียนฝึกคิดและทำกิจกรรมด้วยตนเอง</li>
+                    <li>ตรวจสอบความเข้าใจของนักเรียนจากผลแบบทดสอบ</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 4. ฟุตเตอร์ (Footer) -->
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="mt-1 text-xs text-slate-400">หน่วยการเรียนรู้เรื่อง การใช้งานอินเทอร์เน็ต</p>
+        </div>
+    </footer>
+
+</body>
+</html>

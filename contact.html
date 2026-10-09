@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ติดต่อ - วิทยาการคำนวณ ป.4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --citrus-zest: #FFA62B;
+            --sea-breeze: #86C5FF;
+            --amalfi-tile: #2E5AA7;
+            --cream-gelato: #F8E6A0;
+            --bg-light: #FFFDF7;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .text-amalfi { color: var(--amalfi-tile); }
+        .text-citrus { color: var(--citrus-zest); }
+        .bg-amalfi { background-color: var(--amalfi-tile); }
+        .bg-citrus { background-color: var(--citrus-zest); }
+
+        .btn-citrus {
+            background-color: var(--citrus-zest);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-citrus:hover {
+            background-color: #e59320;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 166, 43, 0.3);
+        }
+
+        .btn-amalfi {
+            background-color: var(--amalfi-tile);
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-amalfi:hover {
+            background-color: #234785;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(46, 90, 167, 0.25);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 sm:h-20 items-center">
+                <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-xl sm:text-2xl shadow-md shrink-0">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div>
+                        <span class="text-base sm:text-xl font-bold text-amalfi block leading-tight">วิทยาการคำนวณ ป.4</span>
+                        <span class="text-[10px] sm:text-xs text-slate-500 font-medium block">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="index.html" class="px-3 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">หน้าแรก</a>
+                    <a href="how-to-use.html" class="px-3 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">วิธีการใช้งาน</a>
+                    <a href="lessons.html" class="px-3 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">บทเรียน</a>
+                    <a href="quizzes.html" class="px-3 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">แบบทดสอบ</a>
+                    <a href="activities.html" class="px-3 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition">กิจกรรม</a>
+                    <a href="contact.html" class="px-3 py-2 rounded-full font-semibold bg-amalfi text-white text-sm transition">ติดต่อ</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-amalfi p-2 rounded-xl active:bg-slate-100">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F8E6A0] px-4 pt-2 pb-4 space-y-2 shadow-lg">
+            <a href="index.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">หน้าแรก</a>
+            <a href="how-to-use.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">วิธีการใช้งาน</a>
+            <a href="lessons.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">บทเรียน</a>
+            <a href="quizzes.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">แบบทดสอบ</a>
+            <a href="activities.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">กิจกรรม</a>
+            <a href="contact.html" class="block px-4 py-2 rounded-xl font-semibold bg-amalfi text-white text-sm">ติดต่อ</a>
+        </div>
+    </nav>
+
+    <!-- Header หน้าติดต่อ -->
+    <header class="bg-gradient-to-r from-[#86C5FF]/30 via-[#F8E6A0]/40 to-[#86C5FF]/20 py-8 border-b border-[#F8E6A0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white px-4 py-1 rounded-full border border-sky-200 text-amalfi text-xs font-semibold shadow-sm mb-2">
+                <i class="fa-solid fa-id-card text-citrus"></i>
+                <span>ข้อมูลผู้พัฒนาและช่องทางการติดต่อ</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-amalfi">ติดต่อผู้สอน / ผู้พัฒนาสื่อการเรียนรู้</h1>
+            <p class="text-slate-600 mt-1 text-sm">หากมีข้อสงสัย ข้อเสนอแนะ หรือต้องการความช่วยเหลือ สามารถติดต่อเราได้ที่นี่ครับ</p>
+        </div>
+    </header>
+
+    <!-- เนื้อหาหน้าติดต่อ -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-10">
+
+        <!-- การ์ดโปรไฟล์ผู้พัฒนา -->
+        <section class="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-md">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                <div class="relative shrink-0">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-4 border-[#F8E6A0] p-1 bg-white shadow-lg overflow-hidden">
+                        <!-- ใส่รูปภาพของคุณตรง src="profile.jpg" -->
+                        <img src="profile.jpg" alt="อัมบียา วงศ์ทิพย์ (ครูแนน)" class="w-full h-full object-cover rounded-full" onerror="this.src='https://ui-avatars.com/api/?name=Ambeeya+Wongtip&background=2E5AA7&color=fff&size=200'">
+                    </div>
+                    <div class="absolute bottom-1 right-1 bg-citrus text-white text-xs font-bold px-3 py-1 rounded-full shadow border-2 border-white">
+                        <i class="fa-solid fa-graduation-cap mr-1"></i> ผู้พัฒนาสื่อ
+                    </div>
+                </div>
+
+                <div class="text-center md:text-left space-y-2">
+                    <span class="text-xs font-bold text-citrus uppercase tracking-wider">Developer & Educator Profile</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-amalfi">นางสาวอัมบียา วงศ์ทิพย์ (ครูแนน)</h2>
+                    <p class="text-slate-600 text-sm font-medium">
+                        สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา / ภาษาไทย คณะศึกษาศาสตร์ มหาวิทยาลัยทักษิณ
+                    </p>
+                    <p class="text-slate-500 text-xs leading-relaxed max-w-2xl pt-1">
+                        ผู้พัฒนาสื่อการเรียนรู้อิเล็กทรอนิกส์ วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4 เรื่อง "การใช้งานอินเทอร์เน็ตอย่างปลอดภัย" เพื่อสนับสนุนการเรียนรู้เชิงรุก (Active Learning) สำหรับนักเรียนและครูผู้สอน
+                    </p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="bg-sky-50 text-amalfi text-xs font-semibold px-3 py-1 rounded-lg border border-sky-100">
+                            <i class="fa-solid fa-book-bookmark text-citrus mr-1"></i> วิทยาการคำนวณ ป.4
+                        </span>
+                        <span class="bg-sky-50 text-amalfi text-xs font-semibold px-3 py-1 rounded-lg border border-sky-100">
+                            <i class="fa-solid fa-code text-citrus mr-1"></i> สื่อการเรียนรู้อินเทอร์แอคทีฟ
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ข้อมูลติดต่อหลัก + ฟอร์ม -->
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-amalfi">ช่องทางติดต่อหลัก</h3>
+                    <p class="text-slate-500 text-xs mt-1">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="bg-white p-5 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm sm:text-base">สถานศึกษา / สังกัด</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-0.5">มหาวิทยาลัยทักษิณ</p>
+                            <p class="text-xs text-slate-400 mt-0.5">คณะศึกษาศาสตร์</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border-2 border-[#F8E6A0] shadow-sm flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#86C5FF]/30 text-amalfi rounded-2xl flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm sm:text-base">อีเมล (E-mail)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-0.5">ambeeyawongtip@gmail.com</p>
+                            <p class="text-xs text-slate-400 mt-0.5">ตอบกลับภายใน 24 ชั่วโมง</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#F8E6A0]/40 p-4 rounded-2xl border border-[#F8E6A0] flex items-center space-x-3 text-slate-700 text-xs">
+                    <i class="fa-solid fa-circle-info text-citrus text-lg shrink-0"></i>
+                    <span>หากนักเรียนพบปัญหาเกี่ยวกับคะแนนแบบทดสอบ สามารถสอบถามครูผู้สอนประจำวิชาได้โดยตรงครับ</span>
+                </div>
+            </div>
+
+            <!-- ฟอร์มส่งข้อความ (แสดงผลสำเร็จ) -->
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#F8E6A0] shadow-md relative">
+                <div class="mb-6">
+                    <span class="text-xs font-bold text-citrus uppercase">Send Message</span>
+                    <h3 class="text-xl font-bold text-amalfi">ส่งข้อความถึงครูผู้สอน</h3>
+                    <p class="text-slate-500 text-xs mt-1">พิมพ์ข้อความ คำถาม หรือข้อเสนอแนะได้ที่นี่</p>
+                </div>
+
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อ - นามสกุล</label>
+                        <input type="text" required placeholder="กรอกชื่อ-นามสกุลของคุณ" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm bg-slate-50/50">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">สถานะ</label>
+                            <select class="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm bg-slate-50/50">
+                                <option>นักเรียน ป.4</option>
+                                <option>คุณครู</option>
+                                <option>ผู้ปกครอง</option>
+                                <option>อื่นๆ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">อีเมล / เบอร์โทร</label>
+                            <input type="text" required placeholder="สำหรับติดต่อกลับ" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm bg-slate-50/50">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">ข้อความรายละเอียด</label>
+                        <textarea rows="4" required placeholder="พิมพ์ข้อความรายละเอียดที่นี่..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-amalfi text-sm bg-slate-50/50 resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 btn-citrus font-bold rounded-xl shadow-md text-sm flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>ส่งข้อความ</span>
+                    </button>
+                </form>
+
+                <div id="successBox" class="hidden absolute inset-0 bg-white/95 backdrop-blur rounded-3xl p-8 flex flex-col items-center justify-center text-center space-y-4">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl shadow-inner">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-amalfi">ส่งข้อความเรียบร้อยแล้ว!</h4>
+                    <p class="text-xs text-slate-600 max-w-xs">ขอบคุณสำหรับข้อความ ครูผู้สอนจะทำการตรวจสอบและตอบกลับโดยเร็วที่สุดครับ</p>
+                    <button onclick="resetContactForm()" class="px-5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">
+                        ส่งข้อความอีกครั้ง
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t-2 border-[#F8E6A0] py-6 sm:py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-xs sm:text-sm space-y-1">
+            <p class="font-medium text-amalfi">© 2026 เว็บไซต์เพื่อการศึกษา วิชาวิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 4</p>
+            <p class="text-slate-400">พัฒนาโดย นางสาวอัมบียา วงศ์ทิพย์ (ครูแนน)</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('successBox').classList.remove('hidden');
+        }
+
+        function resetContactForm() {
+            document.getElementById('contactForm').reset();
+            document.getElementById('successBox').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

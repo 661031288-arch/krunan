@@ -1,0 +1,59 @@
+<nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-[#F8E6A0] shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            
+            <!-- โลโก้ฝั่งซ้าย -->
+            <a href="index.html" class="flex items-center space-x-3 cursor-pointer shrink-0">
+                <div class="w-12 h-12 bg-amalfi rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold text-amalfi block leading-tight">วิทยาการคำนวณ ป.4</span>
+                    <span class="text-xs text-slate-500 font-medium block">หน่วยการเรียนรู้การใช้งานอินเทอร์เน็ต</span>
+                </div>
+            </a>
+
+            <!-- เมนูกลาง (6 ปุ่ม ล็อกตำแหน่งนิ่งสนิท) -->
+            <div class="hidden md:flex items-center space-x-1 lg:space-x-2 shrink-0">
+                <a href="index.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="index.html">หน้าแรก</a>
+                <a href="how-to-use.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="how-to-use.html">วิธีการใช้งาน</a>
+                <a href="lessons.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="lessons.html">บทเรียน</a>
+                <a href="quizzes.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="quizzes.html">แบบทดสอบ</a>
+                <a href="activities.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="activities.html">กิจกรรม</a>
+                <a href="contact.html" class="nav-link px-4 py-2 rounded-full font-medium text-slate-600 hover:text-amalfi hover:bg-[#86C5FF]/20 text-sm transition" data-page="contact.html">ติดต่อ</a>
+            </div>
+
+            <!-- ฝั่งขวา (ล็อกขนาดปุ่มลงทะเบียน/โปรไฟล์) -->
+            <div class="hidden md:flex items-center justify-end space-x-2 border-l border-slate-200 pl-4 shrink-0" style="min-width: 170px;">
+                <div id="userProfile" class="hidden text-xs font-bold text-amalfi bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200 truncate max-w-[150px]">
+                    <i class="fa-solid fa-circle-user text-citrus mr-1"></i> <span id="displayStdName"></span>
+                </div>
+                <button id="btnRegNav" onclick="openRegModal()" class="px-5 py-2 text-sm font-bold btn-citrus rounded-full shadow-md cursor-pointer shrink-0">
+                    <i class="fa-solid fa-user-plus mr-1"></i> ลงทะเบียน
+                </button>
+            </div>
+
+            <!-- ปุ่มมือถือ -->
+            <div class="md:hidden flex items-center shrink-0">
+                <button onclick="toggleMobileMenu()" class="text-amalfi p-2 rounded-xl active:bg-slate-100">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- เมนูดร็อปดาวน์มือถือ -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F8E6A0] px-4 pt-2 pb-4 space-y-2 shadow-lg">
+        <a href="index.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">หน้าแรก</a>
+        <a href="how-to-use.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">วิธีการใช้งาน</a>
+        <a href="lessons.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">บทเรียน</a>
+        <a href="quizzes.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">แบบทดสอบ</a>
+        <a href="activities.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">กิจกรรม</a>
+        <a href="contact.html" class="block px-4 py-2 rounded-xl font-medium text-slate-600 hover:bg-[#86C5FF]/20 text-sm">ติดต่อ</a>
+        <div class="pt-2 border-t border-slate-100">
+            <button onclick="openRegModal()" class="w-full py-2.5 text-center font-bold btn-citrus rounded-xl shadow-sm text-sm">
+                <i class="fa-solid fa-user-plus mr-1"></i> ลงทะเบียนเข้าสู่ระบบ
+            </button>
+        </div>
+    </div>
+</nav>
